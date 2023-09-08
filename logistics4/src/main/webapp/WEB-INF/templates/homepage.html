@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>物流管理系统</title>
+</head>
+
+<body>
+<div>
+<div >
+    <p id="oneText">XXX物流管理系统</p>
+</div>
+
+<div>
+    <div><p><a th:href="@{/queryWareHouse}" >物流仓库管理</a></p></div>
+
+    <div><p><a th:href="@{/queryAllCourier}">快递员管理</a></p></div>
+
+    <div><p><a th:href="@{/queryAllOrder}">物流订单业务管理</a></p></div>
+
+    <div><p><a th:href="@{/queryAllItem}">物资出库入库管理</a></p></div>
+</div>
+    <div id="page"></div>
+</div>
+</body>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js">
+    jQuery(document).ready(function() {
+    $("#page").load("footer.html");});
+</script>
+
+
+</html>

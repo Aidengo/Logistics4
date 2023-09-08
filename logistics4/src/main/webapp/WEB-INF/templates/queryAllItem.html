@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>物资管理</title>
+</head>
+<body>
+<form th:action="@{/addItemAction}" method="post">
+  <table style="border-collapse: collapse;" border="1">
+    <thead>
+    <h2>物资信息列表</h2>
+    <tr>
+      <th>物资名称</th>
+      <th>数量</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="items : ${items}">
+      <td th:text="${items.itemname}"></td>
+      <td th:text="${items.number}"></td>
+    </tr>
+    </tbody>
+  </table>
+  <p>请输入要入库的物资以及数量：</p>
+  物资名称<input  name="itemname" type="text">
+  数量<input  name="number" type="text">
+  <input type="submit" value="入库" onclick="addItemMessage()">
+</form>
+<p>物资在发货时会自动出库</p>
+</body>
+<script>
+  function addItemMessage() {
+    alert("添加成功");
+  }
+</script>
+</html>

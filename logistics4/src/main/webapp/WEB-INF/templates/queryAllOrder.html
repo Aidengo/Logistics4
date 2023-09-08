@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>订单管理</title>
+</head>
+<body>
+<form th:action="@{/updateOrderInformation}" method="post">
+  <table style="border-collapse: collapse;" border="1">
+    <thead>
+    <h2>订单物流信息</h2>
+    <tr>
+      <th>发货人</th>
+      <th>发货人联系电话</th>
+      <th>物流信息</th>
+      <th>收件人</th>
+      <th>收件人联系电话</th>
+      <th>物资名称</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="orders : ${orders}">
+      <td th:text="${orders.shipments}"></td>
+      <td th:text="${orders.shipnumber}"></td>
+      <td th:text="${orders.path}"></td>
+      <td th:text="${orders.consignee}"></td>
+      <td th:text="${orders.consnumber}"></td>
+      <td th:text="${orders.itemname}"></td>
+    </tr>
+    </tbody>
+  </table>
+  <p>请输入物流订单的部分信息，将该订单入库：</p>
+  发货人：<input  name="shipments" type="text">
+  收件人：<input  name="consignee" type="text">
+  要入的库为：<input id="path" name="path" type="text">
+  <input type="submit" value="入库" onclick="addNewPathMessage()">
+</form>
+<form th:action="@{/orderAddAction}" method="post">
+  <h1>添加订单</h1>
+  <p>发货人:<input  name="shipments" type="text"></p>
+  <p>发货人联系电话:<input  name="shipnumber" type="text"></p>
+  <p>发货地:<input name="path" type="text"></p>
+  <p>收件人:<input name="consignee" type="text"></p>
+  <p>收件人联系电话:<input  name="consnumber" type="text"></p>
+  <p>物资名称:<input  name="itemname" type="text"></p>
+  <input type="submit" class="button" value="添加新的订单" onclick="addNewOrderMessage()">
+</form>
+<form th:action="@{/deleteOrder}">
+  <P>通过发货人，收件人，物资名称删除订单</P>
+  <p>发货人:<input  name="shipments" type="text"></p>
+  <p>收件人:<input name="consignee" type="text"></p>
+  <p>物资名称:<input  name="itemname" type="text"></p>
+  <input type="submit" class="button" value="删除订单" onclick="deleteNewOrderMessage()">
+</form>
+</body>
+<script>
+  function addNewPathMessage() {
+    alert("入库成功");
+  }
+</script>
+<script>
+  function addNewOrderMessage() {
+    alert("添加成功");
+  }
+</script>
+<script>
+  function deleteNewOrderMessage() {
+    alert("删除成功");
+  }
+</script>
+</html>

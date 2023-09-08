@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>物流仓库信息</title>
+</head>
+<body>
+<h1>XXX物流仓库信息</h1>
+<form th:action="@{/deleteWareHouseAction}" method="post">
+<table style="border-collapse: collapse;" border="1">
+    <thead>
+    <h2>可在此页面进行删除操作</h2>
+    <tr>
+        <th>仓库所在地</th>
+        <th>仓库名称</th>
+        <th>仓库大小</th>
+        <th>联系人</th>
+        <th>联系电话</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="Warehouse : ${Warehouses}">
+        <td th:text="${Warehouse.Area}"></td>
+        <td th:text="${Warehouse.Name}"></td>
+        <td th:text="${Warehouse.Size}"></td>
+        <td th:text="${Warehouse.Linkman}"></td>
+        <td th:text="${Warehouse.phonenumber}"></td>
+    </tr>
+</tbody>
+</table>
+    <p>请输入要删除的物流仓库的名称：</p>
+    <input name="warehouse" type="text">
+    <input type="submit" value="删除仓库" onclick="deleteWarehouse()">
+</form>
+<form>
+
+</form>
+<div style="background-color: green">
+    <form th:action="@{/addWarehouseAction}" method="post">
+        <h1>增加物流仓库</h1>
+        <p>仓库地址:<input  name="area" type="text"></p>
+        <p>仓库名称:<input  name="name" type="text"></p>
+        <p>大小:<input  name="size" type="text"></p>
+        <p>联系人:<input  name="linkman" type="text"></p>
+        <p>联系电话:<input  name="phonenumber" type="text"></p>
+        <input type="submit" class="button" value="添加仓库" onclick="addWarehouseMessage()">
+    </form>
+</div>
+</body>
+<script>
+    function deleteWarehouse() {
+        alert("删除成功");
+    }
+</script>
+<script>
+    function addWarehouseMessage() {
+        alert("添加s成功");
+    }
+</script>
+</html>

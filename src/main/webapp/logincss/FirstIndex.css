@@ -1,0 +1,228 @@
+a{
+    text-decoration: none;
+}
+.first{
+    background-color: #409EFF;
+    position:absolute;
+    width: 100%;
+    height: 500px;
+    top: 0;
+    left: 0;
+}
+.first #oneText{
+    color:white;
+    font-size: 60px;
+    font-weight: 700;
+    font-family: Arial, Helvetica, sans-serif;
+
+    padding-top: 30px;
+    text-align: center;
+}
+.first #twoText{
+    color: lightgray;
+    font-size: 20px;
+    font-weight: normal;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    position: relative;
+    top: -30px;
+}
+.second{
+    position: relative;
+    width: 702px;
+    background-color: white;
+    height: 500px;
+    top: 200px;
+    z-index: 2;
+    border-radius: 5px;
+    left: 70px;
+}
+.secondOne{
+    background-color:white;
+    height: 450px;
+    width: 332px;
+    border-right: 4px #E7EAF3 solid;
+}
+.secondOne #text1{
+    font-size: 25px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 700;
+    padding-left: 100px;
+    margin-top: 130px;
+}
+
+.secondOne #text2{
+    font-size: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 400;
+    padding-left: 40px;
+    margin-top: 50px;
+}
+.secondOne .enter{
+    width: 180px;
+    height: 50px;
+    border-radius: 30px;
+    background-color: white;
+    border:2px solid #409EFF;
+    margin-top: 60px;
+    margin-left: 80px;
+}
+.second .enter:hover{
+    background-color: #409EFF;
+}
+.secondOne .enter p{
+    font-size: 20px;
+    position: relative;
+    left: 45px;
+    top: -10px;
+    letter-spacing: 6px;
+}
+
+.secondOne1{
+    background-color: #409EFF;
+    height: 70px;
+    width: 70px;
+    position: relative;
+    top: 100px;
+    left: 140px;
+    border-radius: 10px;
+}
+.secondOne1 p{
+    font-size: 38px;
+    padding-left: 24px;
+    padding-top: 10px;
+    color: white;
+    font-weight: 800;
+}
+.secondTwo{
+    position: relative;
+    left: 336px;
+    top: -488px;
+    background-color: white;
+    height: 450px;
+    width: 332px;
+    border-right: 4px #E7EAF3 solid;
+}
+.secondTwo1{
+    background-color: #409EFF;
+    height: 70px;
+    width: 70px;
+    position: relative;
+    top: 100px;
+    left: 130px;
+    border-radius: 10px;
+}
+.secondTwo1 p{
+    font-size: 38px;
+    padding-left: 22px;
+    padding-top: 10px;
+    color: white;
+    font-weight: 800;
+}
+.secondTwo #text1{
+    font-size: 25px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 700;
+    padding-left: 80px;
+    margin-top: 130px;
+}
+
+.secondTwo #text2{
+    font-size: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 400;
+    padding-left: 40px;
+    margin-top: 50px;
+}
+.secondTwo .enter{
+    width: 180px;
+    height: 50px;
+    border-radius: 30px;
+    background-color: white;
+    border:2px solid #409EFF;
+    margin-top: 60px;
+    margin-left: 70px;
+}
+
+.secondTwo .enter p{
+    font-size: 20px;
+    position: relative;
+    left: 45px;
+    top: -10px;
+    letter-spacing: 6px;
+}
+.secondThree{
+    position: relative;
+    left: 670px;
+    top: -976px;
+    background-color: white;
+    height: 450px;
+    width: 334px;
+}
+
+.secondThree1{
+    background-color: #409EFF;
+    height: 70px;
+    width: 70px;
+    position: relative;
+    top: 100px;
+    left: 130px;
+    border-radius: 10px;
+}
+.secondThree1 p{
+    font-size: 38px;
+    padding-left: 22px;
+    padding-top: 10px;
+    color: white;
+    font-weight: 800;
+}
+
+.secondThree #text1{
+    font-size: 25px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 700;
+    padding-left: 85px;
+    margin-top: 134px;
+}
+
+.secondThree #text2{
+    font-size: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 400;
+    padding-left: 50px;
+    margin-top: 50px;
+}
+
+.secondThree .enter{
+    width: 180px;
+    height: 50px;
+    border-radius: 30px;
+    background-color: white;
+    border:2px solid #409EFF;
+    margin-top: 60px;
+    margin-left: 80px;
+}
+
+.secondThree .enter p{
+    font-size: 20px;
+    position: relative;
+    left: 45px;
+    top: -10px;
+    letter-spacing: 6px;
+}
+
+@media screen and (min-width: 1600px){
+    html{
+        font-size: 20px;
+    }
+}
+@media screen and (min-width: 1920px){
+    html{
+        font-size: 28px;
+    }
+}
+@media screen and (min-width: 3840px){
+    html{
+        font-size: 48px;
+    }
+}

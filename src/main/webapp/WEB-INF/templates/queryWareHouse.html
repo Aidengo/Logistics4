@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>物流仓库信息</title>
+    <link rel="stylesheet" href="<%=basePath%>../../logincss/ware.css">
+    <link rel="stylesheet" href="<%=basePath%>../../logincss/style.css">
+</head>
+<body>
+<header>
+    <h1>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  XXX物流仓库信息 &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp 欢迎管理员:root 当前时间: <span id="time"></span></h1>
+</header>
+<nav>
+
+    <ul>
+        <li><a href="/home">返回主页</a></li>
+        <li><a href="/queryWareHouse">物流仓库管理</a></li>
+        <li><a href="/queryAllCourier">快递员管理</a></li>
+        <li><a href="/queryAllOrder">物流订单业务管理</a></li>
+        <li><a href="/queryAllItem">物资出库入库管理</a></li>
+    </ul>
+</nav>
+
+<div style="float:left;">
+<form th:action="@{/deleteWareHouseAction}" method="post">
+
+<table style="border-collapse: collapse;" border="1">
+    <h2>可在此页面进行删除操作</h2>
+    <thead>
+    <tr>
+        <th>仓库所在地</th>
+        <th>仓库名称</th>
+        <th>仓库大小</th>
+        <th>联系人</th>
+        <th>联系电话</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="Warehouse : ${Warehouses}">
+        <td th:text="${Warehouse.Area}"></td>
+        <td th:text="${Warehouse.Name}"></td>
+        <td th:text="${Warehouse.Size}"></td>
+        <td th:text="${Warehouse.Linkman}"></td>
+        <td th:text="${Warehouse.phonenumber}"></td>
+    </tr>
+</tbody>
+</table>
+    <p>请输入要删除的物流仓库的名称：</p>
+    <input name="warehouse" type="text">
+    <input type="submit" value="删除仓库" onclick="deleteWarehouse()">
+</form>
+</div>
+<div id="a">
+    <input type="add" value="添加物流仓库" onclick="showAddModal()">
+</div>
+<div style="background-color: green">
+
+    <div id="addModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeAddModal()">×</span>
+            <h1>增加物流仓库</h1>
+            <form th:action="@{/addWarehouseAction}" method="post">
+                <p>仓库所在地:<input  name="area" type="text"></p>
+                <p>仓库名称:<input  name="name" type="text"></p>
+                <p>大小:<input  name="size" type="text"></p>
+                <p>联系人:<input  name="linkman" type="text"></p>
+                <p>联系电话:<input  name="phonenumber" type="text"></p>
+                <input type="submit" class="button" value="添加仓库">
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    function deleteWarehouse() {
+        alert("删除成功");
+    }
+</script>
+<script>
+    function updateTime() {
+        var now = new Date();
+        var hours = now.getHours();
+        var minutes = now.getMinutes();
+        var seconds = now.getSeconds();
+        hours = checkTime(hours);
+        minutes = checkTime(minutes);
+        seconds = checkTime(seconds);
+        document.getElementById("time").innerHTML = hours + ":" + minutes + ":" + seconds;
+        setTimeout(updateTime, 1000);
+    }
+
+    function checkTime(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
+    }
+
+    updateTime();
+</script>
+<script>
+    function showAddModal() {
+        var modal = document.getElementById("addModal");
+        modal.style.display = "block";
+    }
+    function closeAddModal() {
+        var modal = document.getElementById("addModal");
+        modal.style.display = "none";
+    }
+</script>
+</html>

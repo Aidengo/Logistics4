@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+    <link rel="stylesheet" href="<%=basePath%>../../logincss/login.css">
+</head>
+
+<body>
+<div id="loginDiv" style="height: 350px">
+
+    <form th:action="@{/login}" id="form" method="post">
+        <h1 id="loginMsg">XXX物流管理系统</h1>
+        <p>Account:<input name="account" type="text"></p>
+        <p>Password:<input name="password" type="password"></p>
+
+        <input type="checkbox" name="usertype" value="admin" checked>管理员&nbsp;
+        <input type="checkbox" name="usertype" value="user">用户
+        <div class="row cl">
+            <div class="formControls col-8 col-offset-3">
+                <input class="input-text size-L" id="vcode" name="vcode" type="text" placeholder="请输入验证码" style="width: 200px;">
+                <img title="点击图片切换验证码" id="vcodeImg" src="get_cpacha?vl=4&w=160&h=40"></div>
+        </div>
+
+
+
+        <div id="subDiv">
+            <input type="submit" class="button" value="login up">
+            <input type="reset" class="button" value="reset">&nbsp;&nbsp;&nbsp;
+            <a th:href="@{/register}">没有账号？</a>
+        </div>
+    </form>
+
+
+</div>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+    //点击图片切换验证码
+    $("#vcodeImg").click(function(){
+        console.log("aaa")
+        this.src="get_cpacha?vl=4&w=160&h=40&t="+new Date().getTime();
+    });
+</script>
+
+</body>
+</html>

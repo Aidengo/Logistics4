@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>用户界面</title>
+    <link rel="stylesheet" href="<%=basePath%>../../logincss/user.css">
+
+</head>
+<body>
+<header>
+    <header>
+        <h1>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  XXX物流管理系统 &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp 欢迎用户:user 当前时间: <span id="time"></span></h1>
+    </header>
+
+</header>
+<h2>用户登录界面</h2>
+<!-- 修改绑定对象和提交参数名为"account1" -->
+<form th:action="@{/queryAllOrderByaccount}" th:object="${account1}" method="post">
+    <!-- 添加隐藏域，传递用户账号 -->
+    <input type="hidden" th:name="account1" th:value="${account1}" />
+    <input type="submit" value="查看我的历史订单">
+</form>
+
+<p>更改密码</p>
+<form th:action="@{/updateUserPassword}">
+    <p>请输入新的密码：</p><input type="text" name="newPassword" >
+    <!-- 添加隐藏域，传递用户账号 -->
+    <input type="hidden" th:name="account1" th:value="${account1}" />
+    <input type="submit" class="button" onclick="showSuccessMessage()" value="提交">
+</form>
+<script>
+    function showSuccessMessage() {
+        alert("修改成功");
+    }
+</script>
+</body>
+<script>
+    function updateTime() {
+        var now = new Date();
+        var hours = now.getHours();
+        var minutes = now.getMinutes();
+        var seconds = now.getSeconds();
+        hours = checkTime(hours);
+        minutes = checkTime(minutes);
+        seconds = checkTime(seconds);
+        document.getElementById("time").innerHTML = hours + ":" + minutes + ":" + seconds;
+        setTimeout(updateTime, 1000);
+    }
+
+    function checkTime(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
+    }
+
+    updateTime();
+</script>
+</html>
+

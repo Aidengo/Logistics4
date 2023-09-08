@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>物资管理</title>
+  <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdn.bootcss.com/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://cdn.bootcss.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="<%=basePath%>../../logincss/item.css">
+  <link rel="stylesheet" href="<%=basePath%>../../logincss/style.css">
+</head>
+
+<body>
+<header>
+  <h1>XXX物流管理系统 </h1>
+</header>
+<h2>物资管理 &nbsp &nbsp&nbsp &nbsp
+  <!-- 入库按钮 -->
+  <input type="add" value="入库"  class="btn btn-primary" data-toggle="modal" data-target="#addPathModal">
+  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp 欢迎管理员:root 当前时间: <span id="time"></span>
+</h2>
+
+<nav>
+  <ul>
+    <li><a href="/home">返回主页</a></li>
+    <li><a href="/queryWareHouse">物流仓库管理</a></li>
+    <li><a href="/queryAllCourier">快递员管理</a></li>
+    <li><a href="/queryAllOrder">物流订单业务管理</a></li>
+    <li><a href="/queryAllItem">物资出库入库管理</a></li>
+  </ul>
+</nav>
+<div style="float:left;">
+<form th:action="@{/addItemAction}" method="post">
+    <table style="border-collapse: collapse;" border="1">
+      <thead>
+      <h2>物资信息列表(物资在发货时会自动出库)</h2>
+      <tr>
+        <th>物资名称</th>
+        <th>数量</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="items : ${items}">
+        <td th:text="${items.itemname}"></td>
+        <td th:text="${items.number}"></td>
+      </tr>
+      </tbody>
+    </table>
+</form>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="addPathModal" tabindex="-1" role="dialog" aria-labelledby="addPathModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addPathModalLabel">物资信息</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="addPathForm">
+          <div class="form-group">
+            <label for="itemname">物资名称：</label>
+            <input id="itemname" name="itemname" type="text" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="number">数量：</label>
+            <input id="number" name="number" type="text" class="form-control">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary" onclick="addNewPath()">提交</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function addNewPath() {
+    // 获取表单数据
+    var formData = $('#addPathForm').serialize();
+    // 发送POST请求到服务器
+    $.ajax({
+      url: '/addItemAction',
+      type: 'POST',
+      data: formData,
+      success: function(data) {
+        // 处理服务器返回的数据
+        alert('入库成功');
+        // 关闭Modal
+        $('#addPathModal').modal('hide');
+        // 刷新表格
+        refreshTable();
+      },
+      error: function() {
+        alert('入库失败');
+      }
+    });
+  }
+</script>
+
+<script>
+  function updateTime() {
+    var now = new Date();
+    var hours = now.getHours();
+    var minutes = now.getMinutes();
+    var seconds = now.getSeconds();
+    hours = checkTime(hours);
+    minutes = checkTime(minutes);
+    seconds = checkTime(seconds);
+    document.getElementById("time").innerHTML = hours + ":" + minutes + ":" + seconds;
+    setTimeout(updateTime, 1000);
+  }
+
+  function checkTime(i) {
+    if (i < 10) {
+      i = "0" + i;
+    }
+    return i;
+  }
+
+  updateTime();
+</script>

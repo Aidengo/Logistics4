@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>物流管理系统</title>
+    <link rel="stylesheet" href="<%=basePath%>../../logincss/style.css">
+</head>
+<body>
+<header>
+    <h1>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp XXX物流管理系统  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp 欢迎管理员:root 当前时间: <span id="time"></span></h1>
+</header>
+<nav>
+    <ul>
+        <li><a href="/queryWareHouse">物流仓库管理</a></li>
+        <li><a href="/queryAllCourier">快递员管理</a></li>
+        <li><a href="/queryAllOrder">物流订单业务管理</a></li>
+        <li><a href="/queryAllItem">物资出库入库管理</a></li>
+    </ul>
+    <div class="nav-right"></div>
+</nav>
+<div id="chart" style="float:left;">
+    <canvas id="myChart" style="display: block; box-sizing: border-box; height: 300px; width: 1300px;"></canvas>
+</div>
+
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
+<script src="script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+            datasets: [{
+                label: '物流订单量',
+                data: [12, 19, 3, 5, 2, 3, 7],
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            position: 'relative',
+            width: 1300,
+            height: 300
+        }
+    });
+</script>
+<script>
+    function updateTime() {
+        var now = new Date();
+        var hours = now.getHours();
+        var minutes = now.getMinutes();
+        var seconds = now.getSeconds();
+        hours = checkTime(hours);
+        minutes = checkTime(minutes);
+        seconds = checkTime(seconds);
+        document.getElementById("time").innerHTML = hours + ":" + minutes + ":" + seconds;
+        setTimeout(updateTime, 1000);
+    }
+
+    function checkTime(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
+    }
+
+    updateTime();
+</script>
+<footer>
+    <p>© 2021 XXX物流管理系统</p>
+</footer>
+</body>
+</html>

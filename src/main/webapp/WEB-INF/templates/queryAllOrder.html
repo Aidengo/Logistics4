@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>订单管理</title>
+  <!-- 引入Bootstrap的CSS文件 -->
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="<%=basePath%>../../logincss/order.css">
+  <link rel="stylesheet" href="<%=basePath%>../../logincss/style.css">
+  </head>
+<body>
+<header>
+  <h1>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  XXX物流仓库信息 &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp 欢迎管理员:root 当前时间: <span id="time"></span></h1>
+</header>
+<h2>订单管理
+  <div class="a">
+    <!-- 入库按钮 -->
+    <input type="add" value="入库"  class="btn btn-primary" data-toggle="modal" data-target="#addPathModal">
+    <!-- 删除按钮 -->
+    <input type="add" value="删除订单" class="btn btn-danger" data-toggle="modal" data-target="#deleteOrderModal">
+  <!-- 添加按钮 -->
+    <input type="add" value="添加订单" class="btn btn-primary" data-toggle="modal" data-target="#addOrderModal">
+  </div>
+</h2>
+<nav>
+
+  <ul>
+    <li><a href="/home">返回主页</a></li>
+    <li><a href="/queryWareHouse">物流仓库管理</a></li>
+    <li><a href="/queryAllCourier">快递员管理</a></li>
+    <li><a href="/queryAllOrder">物流订单业务管理</a></li>
+    <li><a href="/queryAllItem">物资出库入库管理</a></li>
+  </ul>
+</nav>
+<div style="float:left;">
+<form th:action="@{/updateOrderInformation}" method="post">
+    <table style="border-collapse: collapse;" border="1">
+      <thead>
+      <tr>
+        <th>发货人</th>
+        <th>发货人联系电话</th>
+        <th>物流信息</th>
+        <th>收件人</th>
+        <th>收件人联系电话</th>
+        <th>物资名称</th>
+        <th>订单编号</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="orders : ${orders}">
+        <td th:text="${orders.shipments}"></td>
+        <td th:text="${orders.shipnumber}"></td>
+        <td th:text="${orders.path}"></td>
+        <td th:text="${orders.consignee}"></td>
+        <td th:text="${orders.consnumber}"></td>
+        <td th:text="${orders.itemname}"></td>
+        <td th:text="${orders.ordernumber}"></td>
+      </tr>
+      </tbody>
+    </table>
+</form>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addPathModal" tabindex="-1" role="dialog" aria-labelledby="addPathModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addPathModalLabel">订单物流信息</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="addPathForm">
+
+          <div class="form-group">
+            <label for="shipments">发货人：</label>
+            <input id="shipments" name="shipments" type="text" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label for="consignee">收件人：</label>
+            <input id="consignee" name="consignee" type="text" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label for="ordernumber">订单编号：</label>
+            <input id="ordernumber" name="ordernumber" type="text" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label for="path">要入的库为：</label>
+            <input id="path" name="path" type="text" class="form-control">
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary" onclick="addNewPath()">提交</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function addNewPath() {
+    // 获取表单数据
+    var formData = $('#addPathForm').serialize();
+    // 发送POST请求到服务器
+    $.ajax({
+      url: '/updateOrderInformation',
+      type: 'POST',
+      data: formData,
+      success: function(data) {
+        // 处理服务器返回的数据
+        alert('入库成功');
+        // 关闭Modal
+        $('#addPathModal').modal('hide');
+        // 刷新表格
+        refreshTable();
+      },
+      error: function() {
+        alert('入库失败');
+      }
+    });
+  }
+</script>
+
+
+<!-- Modal -->
+<div class="modal fade" id="addOrderModal" tabindex="-1" role="dialog" aria-labelledby="addOrderModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addOrderModalLabel">添加订单</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="addOrderForm">
+          <div class="form-group">
+            <label for="shipments">发货人：</label>
+            <input id="shipments" name="shipments" type="text" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="shipnumber">发货人联系电话：</label>
+            <input id="shipnumber" name="shipnumber" type="text" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="path">发货地：</label>
+            <input id="path" name="path" type="text" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="consignee">收件人：</label>
+            <input id="consignee" name="consignee" type="text" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="consnumber">收件人联系电话：</label>
+            <input id="consnumber" name="consnumber" type="text" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="itemname">物资名称：</label>
+            <input id="itemname" name="itemname" type="text" class="form-control">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary" onclick="addNewOrder()">提交</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function addNewOrder() {
+    // 获取表单数据
+    var formData = $('#addOrderForm').serialize();
+    // 发送POST请求到服务器
+    $.ajax({
+      url: '/orderAddAction',
+      type: 'POST',
+      data: formData,
+      success: function(data) {
+        // 处理服务器返回的数据
+        alert('添加成功');
+        // 关闭Modal
+        $('#addOrderModal').modal('hide');
+        // 刷新表格
+        refreshTable();
+      },
+      error: function() {
+        alert('添加失败');
+      }
+    });
+  }
+</script>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteOrderModal" tabindex="-1" role="dialog" aria-labelledby="deleteOrderModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteOrderModalLabel">删除订单</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="deleteOrderForm">
+          <div class="form-group">
+            <label for="shipments">发货人：</label>
+            <input id="shipments" name="shipments" type="text" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="consignee">收件人：</label>
+            <input id="consignee" name="consignee" type="text" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="itemname">物资名称：</label>
+            <input id="itemname" name="itemname" type="text" class="form-control">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-danger" onclick="deleteOrder()">删除</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function deleteOrder() {
+    // 获取表单数据
+    var formData = $('#deleteOrderForm').serialize();
+    // 发送POST请求到服务器
+    $.ajax({
+      url: '/deleteOrder',
+      type: 'POST',
+      data: formData,
+      success: function(data) {
+        // 处理服务器返回的数据
+        alert('删除成功');
+        // 关闭Modal
+        $('#deleteOrderModal').modal('hide');
+        // 刷新表格
+        refreshTable();
+      },
+      error: function() {
+        alert('删除失败');
+      }
+    });
+  }
+</script>
+<script>
+  function updateTime() {
+    var now = new Date();
+    var hours = now.getHours();
+    var minutes = now.getMinutes();
+    var seconds = now.getSeconds();
+    hours = checkTime(hours);
+    minutes = checkTime(minutes);
+    seconds = checkTime(seconds);
+    document.getElementById("time").innerHTML = hours + ":" + minutes + ":" + seconds;
+    setTimeout(updateTime, 1000);
+  }
+
+  function checkTime(i) {
+    if (i < 10) {
+      i = "0" + i;
+    }
+    return i;
+  }
+
+  updateTime();
+</script>
+
+
+<!-- 引入Bootstrap的JS文件 -->
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/popper.js/2.9.3/umd/popper.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
